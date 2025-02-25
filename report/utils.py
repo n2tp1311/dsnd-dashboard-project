@@ -9,7 +9,7 @@ project_root = Path(__file__).parent.parent
 # create a `model_path` variable
 # that points to the file `model.pkl`
 # inside the assets directory
-model_path = project_root / 'asset' / 'model.pkl'
+model_path = project_root / 'assets' / 'model.pkl'
 def load_model():
 
     with model_path.open('rb') as file:

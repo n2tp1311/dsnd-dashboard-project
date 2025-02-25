@@ -6,7 +6,6 @@ class CombinedComponent:
     outer_div_type = Div(cls='container')
     
     def __call__(self, userid, model):
-       
        called_children = self.call_children(userid, model)
        div_args = self.div_args(userid, model)
 
