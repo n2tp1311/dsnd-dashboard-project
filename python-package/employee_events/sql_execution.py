@@ -5,9 +5,9 @@ import pandas as pd
 
 # Using pathlib, create a `db_path` variable
 # that points to the absolute path for the `employee_events.db` file
-#### YOUR CODE HERE
-
-
+db_path = Path(__file__).resolve().parent / 'employee_events.db'
+# Ensure db_path is a string for sqlite3
+db_path = str(db_path)
 # OPTION 1: MIXIN
 # Define a class called `QueryMixin`
 class QueryMixin:
@@ -16,15 +16,31 @@ class QueryMixin:
     # that receives an sql query as a string
     # and returns the query's result
     # as a pandas dataframe
-    #### YOUR CODE HERE
+    def pandas_query(self, query):
+        conn = connect(db_path)
+        try:
+            df =  pd.read_sql(
+                sql=query,
+                con=conn
+            )
+            return df
+        finally:
+            conn.close()
 
     # Define a method named `query`
     # that receives an sql_query as a string
     # and returns the query's result as
     # a list of tuples. (You will need
     # to use an sqlite3 cursor)
-    #### YOUR CODE HERE
-    
+    def query(self, sql_query):
+        conn = connect(db_path)
+        cursor = conn.cursor()
+        try:
+            cursor.execute(sql_query)
+            rows = cursor.fetchall()
+            return rows
+        finally:
+            conn.close()
 
  
  # Leave this code unchanged
